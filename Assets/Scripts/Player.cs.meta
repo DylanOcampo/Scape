@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: c97a999f410d1d442a984bcc8ba236e3
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - handContainer: {instanceID: 0}
+  - PF_Card: {fileID: 8357208071433052925, guid: bf3c25cc96208a14692b871e6f4d0829, type: 3}
+  - PF_OthersCard: {fileID: 8357208071433052925, guid: 3fc5b55159186724e8c06543c9732b4a, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
