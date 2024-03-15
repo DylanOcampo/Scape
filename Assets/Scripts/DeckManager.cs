@@ -73,7 +73,6 @@ public class DeckManager : MonoBehaviour
     }
 
     private bool CheckForBurn(CardHolder cardPlayed){
-        Debug.Log(pileCard + " " +cardPlayed);
         if(pileCard.GetNumberOfCopys() + cardPlayed.GetNumberOfCopys() == 4){
             return true;
         }
@@ -100,13 +99,13 @@ public class DeckManager : MonoBehaviour
 
     public bool DealCard(Player _player){
         if(cardDeck.Count > 0 ){
-            for (int i = _player.cardHand.Count; i < 4; i++)
-            {
+            if(_player.cardHand.Count < 4){
                 _player.DrawCard(cardDeck[0]);
                 cardDeck.RemoveAt(0);
                 UpdateDeckTracker();
+                return true;
             }
-            return true;
+            return false;
         }else{
             return false;
         }
@@ -133,21 +132,21 @@ public class DeckManager : MonoBehaviour
     public void ProcessCard(CardHolder cardPlayed){
         if(CheckForBurn(cardPlayed)){
             BurnPile();
-            GameManager.instance.TurnLogic(true);
+            GameManager.instance.TurnLogic(true, 0, cardPlayed);
             
         }else{
             if(cardPlayed.GetCard().value == "1"){
                 InitializePileCard(cardPlayed.GetCard());
-                UIManager.instance.AsCardEffect();
+                UIManager.instance.AsCardEffect(GameManager.instance.NumOfPlayersInGame());
             }else if(cardPlayed.GetCard().value == "10"){
                 BurnPile();
-                GameManager.instance.TurnLogic(true); 
+                GameManager.instance.TurnLogic(true, 0, cardPlayed); 
                 }else{
                     InitializePileCard(cardPlayed.GetCard());
                     if(cardPlayed.GetCard().value == "8"){
-                        GameManager.instance.TurnLogic(false, cardPlayed.GetNumberOfCopys());
+                        GameManager.instance.TurnLogic(false, cardPlayed.GetNumberOfCopys(), cardPlayed);
                     }else{
-                        GameManager.instance.TurnLogic(false);
+                        GameManager.instance.TurnLogic(false, 0 , cardPlayed);
                     }
                 }
         }
@@ -231,7 +230,7 @@ public class DeckManager : MonoBehaviour
                         return false;
                     }
             case "10":
-                if(actualdeckvalue != 7 && actualdeckvalue <= actualvalue){
+                if(actualdeckvalue != 7){
                         return true;
                     }else{
                         return false;

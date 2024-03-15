@@ -51,12 +51,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private int CorrectTurnPosition(int TurnPosition){
+
+        while (TurnPosition >= NumOfPlayersInGame())
+        {
+            TurnPosition = TurnPosition - NumOfPlayersInGame();
+        }
+        return TurnPosition;
+    }
+
     private void AssignTurn(int TurnRate){
         TurnRate = TurnRate + 1;
         TurnPosition = TurnPosition + TurnRate;
-        if(TurnPosition >= NumOfPlayersInGame()){
-            TurnPosition = 0;
-        }
+        TurnPosition = CorrectTurnPosition(TurnPosition);
         CurrentTurn = playersInGame[TurnPosition];
         CurrentTurn.isMyTurn = true;
         
@@ -69,30 +76,29 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public void CardCpuAnimation(){
-        UIManager.instance.AnimationEffect(TurnPosition);
-    }
 
-
-    public void TurnLogic(bool burn = false, int TurnRate = 0){
+    public void TurnLogic(bool burn = false, int TurnRate = 0, CardHolder _card = null){
+        CurrentTurn.DeleteCardFromHand(_card);
+        if(CurrentTurn.NeedsToDealACard()){
+            if(!DeckManager.instance.DealCard(CurrentTurn)){
+                CurrentTurn.DealPackage();
+            }
+        }
         if(!burn){
             CurrentTurn.isMyTurn = false;
             AssignTurn(TurnRate);            
         }
 
-        if(CurrentTurn.CheckIfHandIsPossibleToPlay()){
-            if(CurrentTurn.NeedsToDealACard()){
-                if(!DeckManager.instance.DealCard(CurrentTurn)){
-                    CurrentTurn.DealPackage();
-                }
-            }
-        }else{
+        
+        if(!CurrentTurn.CheckIfHandIsPossibleToPlay()){
             DeckManager.instance.DealPile(CurrentTurn);
         }
-        
         if(TurnPosition == 0){
+                CurrentTurn.CorrectHand();
                 UIManager.instance.MainPlayerTurnEffect();
+                CurrentTurn.NeedsToDealACard();
             }else{
+                CurrentTurn.CorrectHand();
                 CurrentTurn.CPUPlayerTurn();
             }
         
@@ -103,7 +109,45 @@ public class GameManager : MonoBehaviour
         return CurrentTurn;
     }
 
+    public void RandomTurn(){
+        if(NumOfPlayersInGame() == 2){
+            ForceTurn(0);
+            return;
+        }else{
+            int tempTurn = -1 ;
+            while(TurnPosition != -1 && TurnPosition != tempTurn){
+                tempTurn = Random.Range(0, NumOfPlayersInGame());
+            }
+            ForceTurn(tempTurn);
+            return;
+        }
+        
+    }
+
+    public void TurnLogicAs(){
+        if(CurrentTurn.NeedsToDealACard()){
+            if(!DeckManager.instance.DealCard(CurrentTurn)){
+                CurrentTurn.DealPackage();
+            }
+        }
+        UIManager.instance.AsCardEffectEnd();
+        CurrentTurn.isMyTurn = false;
+        RandomTurn();
+        if(!CurrentTurn.CheckIfHandIsPossibleToPlay()){
+            DeckManager.instance.DealPile(CurrentTurn);
+        }
+
+        if(TurnPosition == 0){
+            UIManager.instance.MainPlayerTurnEffect();
+        }else{
+            CurrentTurn.CPUPlayerTurn();
+        }
+    }
+
+
+
     public void TurnLogicAs(int PlayerNumber){
+        UIManager.instance.AsCardEffectEnd();
         CurrentTurn.isMyTurn = false;
         ForceTurn(PlayerNumber);
         

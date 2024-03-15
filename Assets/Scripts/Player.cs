@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -21,6 +22,8 @@ public class Player : MonoBehaviour
     
     public bool isMyTurn;
     
+    public Card cardToPlay;
+
 
     public void SetCPUPlayer(){
         CpuPlayer = true;
@@ -73,7 +76,7 @@ public class Player : MonoBehaviour
         if(cardHand.Count > 0){
             return;
         }
-
+        Debug.Log(1);
         if(firstPackage != null){
             foreach (Card item in firstPackage)
             {
@@ -106,10 +109,20 @@ public class Player : MonoBehaviour
         CreateCardToHand(item);
     }
 
+    public void CorrectHand(){
+        if(cardHand.Contains(null)){
+            cardHand.Remove(null);
+            CorrectHand();
+        }
+        return;
+    }
+
+
     public bool CheckIfHandIsPossibleToPlay(){
         foreach (CardHolder _card in cardHand)
         {
             if(DeckManager.instance.CanItBePlayed(_card.GetCard())){
+                cardToPlay = _card.GetCard();
                 return true;
             }
         }
@@ -126,8 +139,8 @@ public class Player : MonoBehaviour
                 break;
             }
         }
-        GameManager.instance.CardCpuAnimation();
-        tempcard.OnClick_Card();
+        cardHand.Remove(tempcard);
+        UIManager.instance.AnimationEffect(GameManager.instance.TurnPosition).OnComplete(() => tempcard.OnClick_Card());
     }
 
     public void OnClick_SortHand(){
@@ -137,7 +150,6 @@ public class Player : MonoBehaviour
         {
             temp = " " + item;
         }
-        Debug.Log(temp);
     }
 
     static int SortByScore(CardHolder c1, CardHolder c2)
@@ -204,7 +216,6 @@ public class Player : MonoBehaviour
             
             return -1;
         }
-        Debug.Log(card1 + card2);
         
         return int.Parse(card1).CompareTo(int.Parse(card2));
     }

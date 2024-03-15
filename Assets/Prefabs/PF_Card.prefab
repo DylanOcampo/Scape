@@ -419,6 +419,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteHolder: {fileID: 1569201401710907450}
+  button: {fileID: 3929268957183677748}
+  noCardSprite: {fileID: 0}
   secondCopy: {fileID: 1612695029425976330}
   thirdCopy: {fileID: 2007434943964817133}
   fourthCopy: {fileID: 1217221822047376506}

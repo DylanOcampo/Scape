@@ -7,7 +7,7 @@ public class CardHolder : MonoBehaviour
 {
     private Card cardInfo;
     public Image spriteHolder;
-
+    public Button button;
     public Sprite noCardSprite;
 
     public GameObject secondCopy, thirdCopy, fourthCopy;
@@ -84,11 +84,22 @@ public class CardHolder : MonoBehaviour
 
     public void OnClick_Card(){
         if(DeckManager.instance.CanItBePlayed(cardInfo)){
-            DeckManager.instance.ProcessCard(this);
+            if(button != null){
+                button.enabled = false;
+            }
             GameManager.instance.GetCurrentPlayer().DeleteCardFromHand(this);
+            DeckManager.instance.ProcessCard(this);
+            
             Destroy(this.gameObject);
         }else{
             UIManager.instance.ErrorEffect();
         }
+    }
+    public void OnClick_DealCardPile(){
+        Player tempPlayer = GameManager.instance.MainPlayer.GetComponent<Player>();
+        if(tempPlayer.isMyTurn){
+            DeckManager.instance.DealPile(tempPlayer);
+        }
+        
     }
 }
