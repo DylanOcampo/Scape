@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using TMPro;
-using Unity.VisualScripting;
+using Fusion;
 
-public class DeckManager : MonoBehaviour
+public class DeckManager :NetworkBehaviour, IStateAuthorityChanged
 {
     private static DeckManager _instance;
 
@@ -22,18 +22,28 @@ public class DeckManager : MonoBehaviour
         }
     }
     [SerializeField]private List<Card> cardDeck = new List<Card>();
-
     private List<Card> cardPile = new List<Card>();
-    public TextMeshProUGUI cardsInDeck;
+    private TextMeshProUGUI cardsInDeck;
 
-    public CardHolder pileCard;
-    public TextMeshProUGUI cardsInPile;
+    private CardHolder pileCard;
+    private TextMeshProUGUI cardsInPile;
 
     public int actualvalue, actualdeckvalue;
     public void InitializeDeck(){
+        InitializeConstants();
         Shuffle(cardDeck);
         DealCardsToPlayers();
         InitializeFirstPileCard();
+    }
+
+    public void InitializeConstants(){
+        GameInterface tempInterface = GameObject.FindGameObjectWithTag("Interface").GetComponent<GameInterface>();
+        
+        pileCard = tempInterface.PileCard;
+        cardsInPile = tempInterface.CardsInPile;
+        cardsInDeck = tempInterface.CardsInDeck;
+        
+
     }
 
     public void UpdateDeckTracker(){
@@ -42,7 +52,7 @@ public class DeckManager : MonoBehaviour
     }
 
     private void DealCardsToPlayers(){
-        foreach (Player item in GameManager.instance.PlayersInGame())
+        foreach (Player item in GameLogicManager.instance.PlayersInGame())
         {
             //FirstPackage
             item.SetFirstPackage(CreatePackage());
@@ -132,21 +142,21 @@ public class DeckManager : MonoBehaviour
     public void ProcessCard(CardHolder cardPlayed){
         if(CheckForBurn(cardPlayed)){
             BurnPile();
-            GameManager.instance.TurnLogic(true, 0, cardPlayed);
+            GameLogicManager.instance.TurnLogic(true, 0, cardPlayed);
             
         }else{
             if(cardPlayed.GetCard().value == "1"){
                 InitializePileCard(cardPlayed.GetCard());
-                UIManager.instance.AsCardEffect(GameManager.instance.NumOfPlayersInGame());
+                UIManager.instance.AsCardEffect(GameLogicManager.instance.NumOfPlayersInGame());
             }else if(cardPlayed.GetCard().value == "10"){
                 BurnPile();
-                GameManager.instance.TurnLogic(true, 0, cardPlayed); 
+                GameLogicManager.instance.TurnLogic(true, 0, cardPlayed); 
                 }else{
                     InitializePileCard(cardPlayed.GetCard());
                     if(cardPlayed.GetCard().value == "8"){
-                        GameManager.instance.TurnLogic(false, cardPlayed.GetNumberOfCopys(), cardPlayed);
+                        GameLogicManager.instance.TurnLogic(false, cardPlayed.GetNumberOfCopys(), cardPlayed);
                     }else{
-                        GameManager.instance.TurnLogic(false, 0 , cardPlayed);
+                        GameLogicManager.instance.TurnLogic(false, 0 , cardPlayed);
                     }
                 }
         }
@@ -263,7 +273,10 @@ public class DeckManager : MonoBehaviour
         return false;
     }
 
-
+    public void StateAuthorityChanged()
+    {
+        //Something start new game
+    }
 
 
 }

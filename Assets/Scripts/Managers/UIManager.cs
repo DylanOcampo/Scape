@@ -38,7 +38,7 @@ public class UIManager : MonoBehaviour
     public void OnClick_PlayButton(int cpuPlayers){
         PlayMenu.SetActive(false);
         GameMenu.SetActive(true);
-        GameManager.instance.InitializeScape(cpuPlayers);
+        GameLogicManager.instance.InitializeScape(cpuPlayers);
     }
 
     public void EndGameEffect(){
@@ -50,7 +50,7 @@ public class UIManager : MonoBehaviour
     }
 
     public void AsCardEffect(int NumOfPlayersInGame){
-        if(GameManager.instance.MainPlayer.GetComponent<Player>().isMyTurn){
+        if(GameLogicManager.instance.GetMainPlayer().isMyTurn){
             AsMenu.SetActive(true);
             FirstPlayer.SetActive(true);
             if(NumOfPlayersInGame == 3){
@@ -60,7 +60,7 @@ public class UIManager : MonoBehaviour
                 ThirdPlayer.SetActive(true);
             }
         }else{
-            GameManager.instance.TurnLogicAs();
+            GameLogicManager.instance.TurnLogicAs();
         }
         
     }

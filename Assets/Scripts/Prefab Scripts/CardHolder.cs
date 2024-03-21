@@ -87,7 +87,7 @@ public class CardHolder : MonoBehaviour
             if(button != null){
                 button.enabled = false;
             }
-            GameManager.instance.GetCurrentPlayer().DeleteCardFromHand(this);
+            GameLogicManager.instance.GetCurrentPlayer().DeleteCardFromHand(this);
             DeckManager.instance.ProcessCard(this);
             
             Destroy(this.gameObject);
@@ -96,7 +96,7 @@ public class CardHolder : MonoBehaviour
         }
     }
     public void OnClick_DealCardPile(){
-        Player tempPlayer = GameManager.instance.MainPlayer.GetComponent<Player>();
+        Player tempPlayer = GameLogicManager.instance.GetMainPlayer();
         if(tempPlayer.isMyTurn){
             DeckManager.instance.DealPile(tempPlayer);
         }

@@ -140,7 +140,7 @@ public class Player : MonoBehaviour
             }
         }
         cardHand.Remove(tempcard);
-        UIManager.instance.AnimationEffect(GameManager.instance.TurnPosition).OnComplete(() => tempcard.OnClick_Card());
+        UIManager.instance.AnimationEffect(GameLogicManager.instance.TurnPosition).OnComplete(() => tempcard.OnClick_Card());
     }
 
     public void OnClick_SortHand(){

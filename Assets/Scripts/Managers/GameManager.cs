@@ -1,29 +1,45 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class GameManager : MonoBehaviour
+using Fusion;
+public class GameLogicManager : NetworkBehaviour, IStateAuthorityChanged
 {
-    private static GameManager _instance;
+    private static GameLogicManager _instance;
 
-    public static GameManager instance
+    public static GameLogicManager instance
     {
         get
         {
             if (_instance == null)
             {
-                _instance = GameObject.FindObjectOfType<GameManager>();
+                _instance = GameObject.FindObjectOfType<GameLogicManager>();
             }
             return _instance;
         }
     }
     public List<Player> playersInGame = new List<Player>();
-    public List<GameObject> possiblePlayers = new List<GameObject>();
+    private List<GameObject> possiblePlayers = new List<GameObject>();
 
-    public GameObject otherPlayersContainer, MainPlayer;
+    private GameObject otherPlayersContainer, MainPlayer;
 
     private Player CurrentTurn;
     public int TurnPosition;
+
+
+    public void InitializeConstants(){
+        GameInterface tempInterface = GameObject.FindGameObjectWithTag("Interface").GetComponent<GameInterface>();
+        
+        MainPlayer = tempInterface.MainPlayer;
+        otherPlayersContainer = tempInterface.OtherPlayersContainer;
+        
+        possiblePlayers = tempInterface.possiblePlayers;
+
+    }
+
+    public Player GetMainPlayer(){
+        return MainPlayer.GetComponent<Player>();
+    }
+
     public int NumOfPlayersInGame(){
         return playersInGame.Count;
     }
@@ -33,12 +49,31 @@ public class GameManager : MonoBehaviour
     }
     // Start is called before the first frame update
 
+    public override void Spawned(){
+        if(Runner.SessionInfo.PlayerCount < 2 ){
+            
+        }else{
+            InitializeConstants();
+
+            if (Runner.IsSharedModeMasterClient)
+            {
+                Runner.SessionInfo.IsOpen = false;
+                Runner.SessionInfo.IsVisible = false;
+            }
+
+            if (HasStateAuthority){
+                InitializeScape(Runner.SessionInfo.PlayerCount);
+            }
+        }
+        
+    }
+
 
     public void InitializeScape(int players){
         playersInGame.Add(MainPlayer.GetComponent<Player>());
         for (int i = 0; i < players; i++)
         {
-            possiblePlayers[i].GetComponent<Player>().SetCPUPlayer();
+            //possiblePlayers[i].GetComponent<Player>().SetCPUPlayer();
             playersInGame.Add(possiblePlayers[i].GetComponent<Player>());
             possiblePlayers[i].SetActive(true);
         }
@@ -169,5 +204,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void StateAuthorityChanged()
+    {
+        //Something start new game
+    }
 
 }
