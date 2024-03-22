@@ -43,12 +43,20 @@ public class PlayerSpawner : SimulationBehaviour, INetworkRunnerCallbacks
 
                 string playerName = connector.LocalPlayerName;
 
-                if (string.IsNullOrEmpty(playerName))
+                if (string.IsNullOrEmpty(playerName)){
+                    resultingPlayer.name =  "Player " + resultingPlayer.StateAuthority.PlayerId;
+                    RealPlayer.name =  "Player " + resultingPlayer.StateAuthority.PlayerId;
                     testPlayer.ChangePlayer("Player " + resultingPlayer.StateAuthority.PlayerId);
-                else
+                }else{
                     testPlayer.ChangePlayer(playerName);
+                    resultingPlayer.name =  playerName;
+                    RealPlayer.name =  playerName;
+                }
+                    
 
                 _spawnedCharacters.Add(player, RealPlayer);
+
+                
             }       
         }
 
