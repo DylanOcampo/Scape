@@ -1,8 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Fusion;
-public class GameLogicManager : NetworkBehaviour, IStateAuthorityChanged
+public class GameLogicManager : MonoBehaviour
 {
     private static GameLogicManager _instance;
 
@@ -49,24 +48,6 @@ public class GameLogicManager : NetworkBehaviour, IStateAuthorityChanged
     }
     // Start is called before the first frame update
 
-    public override void Spawned(){
-        if(Runner.SessionInfo.PlayerCount < 2 ){
-            
-        }else{
-            InitializeConstants();
-
-            if (Runner.IsSharedModeMasterClient)
-            {
-                Runner.SessionInfo.IsOpen = false;
-                Runner.SessionInfo.IsVisible = false;
-            }
-
-            if (HasStateAuthority){
-                InitializeScape(Runner.SessionInfo.PlayerCount);
-            }
-        }
-        
-    }
 
 
     public void InitializeScape(int players){

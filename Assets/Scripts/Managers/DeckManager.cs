@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using TMPro;
-using Fusion;
+using Unity.Netcode;
 
-public class DeckManager :NetworkBehaviour, IStateAuthorityChanged
+public class DeckManager : NetworkBehaviour
 {
     private static DeckManager _instance;
 
@@ -27,6 +27,13 @@ public class DeckManager :NetworkBehaviour, IStateAuthorityChanged
 
     private CardHolder pileCard;
     private TextMeshProUGUI cardsInPile;
+
+
+    //NetworkVariables
+
+    private NetworkVariable<Card> netPileCard = new NetworkVariable<Card>(null);
+    private NetworkVariable<int> netCardsInDeck = new NetworkVariable<int>(52);
+    private NetworkVariable<int> netCardsInPile = new NetworkVariable<int>(0);
 
     public int actualvalue, actualdeckvalue;
     public void InitializeDeck(){
