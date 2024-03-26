@@ -815,7 +815,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -1, y: -9.176392}
+  m_AnchoredPosition: {x: -1, y: -9.17627}
   m_SizeDelta: {x: -144.9915, y: -574.8193}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &126370948
@@ -4266,7 +4266,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 60.900024, y: 1.0999756}
+  m_AnchoredPosition: {x: 60.900024, y: 1.1000977}
   m_SizeDelta: {x: -199.2159, y: -23.1703}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &643780060
@@ -5047,7 +5047,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 60.900024, y: 1.0999756}
+  m_AnchoredPosition: {x: 60.900024, y: 1.1000977}
   m_SizeDelta: {x: -199.2159, y: -23.1703}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &777553320
@@ -5463,7 +5463,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 12
+  m_fontSize: 47.25
   m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -6017,7 +6017,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 35.35
+  m_fontSize: 71.75
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -6357,7 +6357,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.0025024414, y: 246.2}
+  m_AnchoredPosition: {x: -0.0024414062, y: 246.19995}
   m_SizeDelta: {x: 0.005, y: -520.6268}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1097694712
@@ -7313,7 +7313,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -28.5777, y: 0}
+  m_AnchoredPosition: {x: -28.577759, y: 0}
   m_SizeDelta: {x: -100.2961, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1245623442
@@ -7561,7 +7561,7 @@ MonoBehaviour:
   ConnectionData:
     Address: 127.0.0.1
     Port: 7777
-    ServerListenAddress: 127.0.0.1
+    ServerListenAddress: 0.0.0.0
   DebugSimulator:
     PacketDelayMS: 0
     PacketJitterMS: 0
@@ -7777,7 +7777,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18
+  m_fontSize: 25.7
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -11176,7 +11176,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 60.900024, y: 1.0999756}
+  m_AnchoredPosition: {x: 60.900024, y: 1.1000977}
   m_SizeDelta: {x: -199.2159, y: -23.1703}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2091485839
