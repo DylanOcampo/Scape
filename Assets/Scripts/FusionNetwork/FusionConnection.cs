@@ -27,7 +27,7 @@ public class FusionConnection : MonoBehaviour
     [Header ("Menus")]
     public GameObject LobbyMenu, Game, PlayMenu;
     [Header ("Lobby")]
-    public GameObject PF_Player, LobbyContainer, ScapeManager, DeckManager, RealPlayerContainer;
+    public GameObject PF_Player, LobbyContainer, networkGameManager, RealPlayerContainer;
     StartGameArgs startGameArgs = new StartGameArgs();
 
     public async void StartGame(bool CreateRoom)
@@ -43,7 +43,7 @@ public class FusionConnection : MonoBehaviour
         }
 
         StartGameArgs startGameArgs = new StartGameArgs();
-        startGameArgs.GameMode= GameMode.Host;
+        startGameArgs.GameMode= GameMode.Shared;
         startGameArgs.PlayerCount = 4;
         startGameArgs.Scene = scene;
 
@@ -96,7 +96,7 @@ public class FusionConnection : MonoBehaviour
 
     public void OnClick_StartGame(){
         
-
+        
         NetworkRunner runner = null;
         // If no runner has been assigned, we cannot start the game
         if (NetworkRunner.Instances.Count > 0)
@@ -105,10 +105,11 @@ public class FusionConnection : MonoBehaviour
         }
 
         if(runner.IsSharedModeMasterClient){
-            runner.Spawn(DeckManager);
-            runner.Spawn(ScapeManager);
+            runner.Spawn(networkGameManager);
+            
 
         }
+        UIManager.instance.OnClick_PlayButton(1);
     }
 
 }

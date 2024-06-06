@@ -23,7 +23,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public GameObject FirstMenu, GameMenu, PlayMenu, EndGame, AsCardMenu, MainPlayerTurn, MainCamera;
+    public GameObject FirstMenu, GameMenu, PlayMenu, EndGame, NetworkMenu, MainPlayerTurn, MainCamera;
 
     [Header ("AnimationEffect")]
     public GameObject FirstPosition, SecondPosition, ThirdPosition, Card, Center;
@@ -33,10 +33,12 @@ public class UIManager : MonoBehaviour
     public void OnClick_StartButton(){
         FirstMenu.SetActive(false);
         PlayMenu.SetActive(true);
+        
     }
 
     public void OnClick_PlayButton(int cpuPlayers){
         PlayMenu.SetActive(false);
+        NetworkMenu.SetActive(false);
         GameMenu.SetActive(true);
         GameLogicManager.instance.InitializeScape(cpuPlayers);
     }

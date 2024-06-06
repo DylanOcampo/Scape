@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6168951732563755087}
   - component: {fileID: 5584540697167210089}
+  - component: {fileID: 4069390517726875010}
   - component: {fileID: 4167879541275396881}
   m_Layer: 0
   m_Name: RealPlayer
@@ -49,7 +50,21 @@ MonoBehaviour:
   ObjectInterest: 1
   Flags: 262145
   NestedObjects: []
-  NetworkedBehaviours: []
+  NetworkedBehaviours:
+  - {fileID: 4069390517726875010}
+--- !u!114 &4069390517726875010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5683995412371130773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3aa65cef7ee1f1b4f9ac948374ef69c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _player: {fileID: 4167879541275396881}
 --- !u!114 &4167879541275396881
 MonoBehaviour:
   m_ObjectHideFlags: 0

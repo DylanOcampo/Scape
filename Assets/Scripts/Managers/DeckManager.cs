@@ -36,6 +36,17 @@ public class DeckManager :NetworkBehaviour, IStateAuthorityChanged
         InitializeFirstPileCard();
     }
 
+    public override void Spawned(){
+        base.Spawned();
+        InitializeConstants();
+
+        if (Object.HasStateAuthority == true){
+            Shuffle(cardDeck);
+        }
+    }
+
+
+
     public void InitializeConstants(){
         GameInterface tempInterface = GameObject.FindGameObjectWithTag("Interface").GetComponent<GameInterface>();
         

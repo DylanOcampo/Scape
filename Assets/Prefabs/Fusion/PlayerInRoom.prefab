@@ -94,7 +94,8 @@ MonoBehaviour:
   ObjectInterest: 1
   Flags: 262145
   NestedObjects: []
-  NetworkedBehaviours: []
+  NetworkedBehaviours:
+  - {fileID: 1539059704422177991}
 --- !u!114 &1539059704422177991
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,6 +109,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerName: {fileID: 4435101243216635796}
+  _PlayerName:
+    _length: 0
+    _data:
+      Data: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 --- !u!1 &5920106261772527345
 GameObject:
   m_ObjectHideFlags: 0

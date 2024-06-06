@@ -10,8 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7451954709620577694}
   - component: {fileID: 6550226851052810014}
-  - component: {fileID: 9018572172027021957}
-  - component: {fileID: 4955473861771240481}
   - component: {fileID: 383208977270468683}
   m_Layer: 0
   m_Name: Prototype Runner
@@ -47,87 +45,6 @@ MonoBehaviour:
   m_Script: {fileID: -1199893898, guid: e725a070cec140c4caffb81624c8c787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &9018572172027021957
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6633910514043781351}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -232609262, guid: e725a070cec140c4caffb81624c8c787, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnInput:
-    m_PersistentCalls:
-      m_Calls: []
-  OnInputMissing:
-    m_PersistentCalls:
-      m_Calls: []
-  OnConnectedToServer:
-    m_PersistentCalls:
-      m_Calls: []
-  OnDisconnectedFromServer:
-    m_PersistentCalls:
-      m_Calls: []
-  OnConnectRequest:
-    m_PersistentCalls:
-      m_Calls: []
-  OnConnectFailed:
-    m_PersistentCalls:
-      m_Calls: []
-  PlayerJoined:
-    m_PersistentCalls:
-      m_Calls: []
-  PlayerLeft:
-    m_PersistentCalls:
-      m_Calls: []
-  OnSimulationMessage:
-    m_PersistentCalls:
-      m_Calls: []
-  OnShutdown:
-    m_PersistentCalls:
-      m_Calls: []
-  OnSessionListUpdate:
-    m_PersistentCalls:
-      m_Calls: []
-  OnCustomAuthenticationResponse:
-    m_PersistentCalls:
-      m_Calls: []
-  OnHostMigration:
-    m_PersistentCalls:
-      m_Calls: []
-  OnSceneLoadDone:
-    m_PersistentCalls:
-      m_Calls: []
-  OnSceneLoadStart:
-    m_PersistentCalls:
-      m_Calls: []
-  OnReliableData:
-    m_PersistentCalls:
-      m_Calls: []
-  OnReliableProgress:
-    m_PersistentCalls:
-      m_Calls: []
-  OnObjectEnterAOI:
-    m_PersistentCalls:
-      m_Calls: []
-  OnObjectExitAOI:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!114 &4955473861771240481
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6633910514043781351}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8edbe7108d8a43ab838cf8b8d9453df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &383208977270468683
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -140,5 +57,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcc5654be75cfa24a96a4d3924c87a5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerPrefab: {fileID: 5683995412371130773, guid: 60865c9f0001edf4fa509d728b885112, type: 3}
-  RoomPlayerPrefab: {fileID: 5212559257445675731, guid: fbec4a9cc3438e843a51c68da3c27967, type: 3}
+  LobbyPlayerPrefab: {fileID: 5212559257445675731, guid: fbec4a9cc3438e843a51c68da3c27967, type: 3}
+  RealPlayerPrefab: {fileID: 5683995412371130773, guid: 60865c9f0001edf4fa509d728b885112, type: 3}

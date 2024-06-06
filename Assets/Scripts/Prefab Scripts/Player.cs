@@ -13,17 +13,15 @@ public class Player : MonoBehaviour
     public Card[] firstPackage;
     public Card[] secondPackage;
     public bool CpuPlayer = false;
+    public bool AmIMainPlayer = false;
+    public bool isMyTurn;
+    public Card cardToPlay;
     //public test
 
 
     public GameObject handContainer, PF_Card, PF_OthersCard;
     
-    public bool AmIMainPlayer = false;
-    
-    public bool isMyTurn;
-    
-    public Card cardToPlay;
-
+    private bool OnlineGame = false;
 
     public void SetCPUPlayer(){
         CpuPlayer = true;
