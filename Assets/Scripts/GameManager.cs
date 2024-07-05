@@ -187,6 +187,14 @@ public class GameManager : MonoBehaviour
 
     public void TurnLogicAs(int PlayerNumber)
     {
+        if (CurrentTurn.NeedsToDealACard())
+        {
+            if (!DeckManager.instance.DealCard(CurrentTurn))
+            {
+                CurrentTurn.DealPackage();
+            }
+        }
+
         UIManager.instance.AsCardEffectEnd();
         CurrentTurn.isMyTurn = false;
         ForceTurn(PlayerNumber);

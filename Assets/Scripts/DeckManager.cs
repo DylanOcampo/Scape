@@ -172,7 +172,11 @@ public class DeckManager : MonoBehaviour
             if (cardPlayed.GetCard().value == "1")
             {
                 InitializePileCard(cardPlayed.GetCard());
-                UIManager.instance.AsCardEffect(GameManager.instance.NumOfPlayersInGame());
+                if (GameManager.instance.TurnPosition == 0)
+                {
+                    UIManager.instance.AsCardEffect(GameManager.instance.NumOfPlayersInGame());
+                }
+
             }
             else if (cardPlayed.GetCard().value == "10")
             {
