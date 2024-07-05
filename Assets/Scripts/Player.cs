@@ -9,6 +9,8 @@ public class Player : MonoBehaviour
 {
     public List<CardHolder> cardHand = new List<CardHolder>();
 
+    private List<GameObject> SpawnedCards = new List<GameObject>();
+
     //public test
     public Card[] firstPackage;
     public Card[] secondPackage;
@@ -17,27 +19,45 @@ public class Player : MonoBehaviour
 
 
     public GameObject handContainer, PF_Card, PF_OthersCard;
-    
+
     public bool AmIMainPlayer = false;
-    
+
     public bool isMyTurn;
-    
+
     public Card cardToPlay;
 
+    public void ResetPlayer()
+    {
+        CpuPlayer = false;
+        firstPackage = null;
+        secondPackage = null;
+        cardHand.Clear();
 
-    public void SetCPUPlayer(){
+        foreach (GameObject item in SpawnedCards)
+        {
+            Destroy(item);
+        }
+        SpawnedCards.Clear();
+    }
+
+
+    public void SetCPUPlayer()
+    {
         CpuPlayer = true;
     }
 
-    public void SetFirstPackage(Card[] package){
+    public void SetFirstPackage(Card[] package)
+    {
         firstPackage = package;
     }
 
-    public void SetSecondPackage(Card[] package){
+    public void SetSecondPackage(Card[] package)
+    {
         secondPackage = package;
     }
 
-    public void SetCardHand(Card[] handdealed){
+    public void SetCardHand(Card[] handdealed)
+    {
         foreach (Card item in handdealed)
         {
             CreateCardToHand(item);
@@ -45,39 +65,53 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void DeleteCardFromHand(CardHolder _card){
+    public void DeleteCardFromHand(CardHolder _card)
+    {
         cardHand.Remove(_card);
     }
 
-    private void CreateCardToHand(Card _cardInfo){
+    private void CreateCardToHand(Card _cardInfo)
+    {
 
         foreach (CardHolder item in cardHand)
         {
-            
-            if(item.name ==_cardInfo.value){
+
+            if (item.name == _cardInfo.value)
+            {
                 item.GetComponent<CardHolder>().AddCopy();
                 return;
             }
-            
+
         }
         CardHolder _card;
-        if(!CpuPlayer){
-            _card = Instantiate(PF_Card, handContainer.transform).GetComponent<CardHolder>();
-        }else{
-            _card = Instantiate(PF_OthersCard, handContainer.transform).GetComponent<CardHolder>();
+        GameObject Instance;
+        if (!CpuPlayer)
+        {
+
+            Instance = Instantiate(PF_Card, handContainer.transform);
+            _card = Instance.GetComponent<CardHolder>();
         }
+        else
+        {
+            Instance = Instantiate(PF_OthersCard, handContainer.transform);
+            _card = Instance.GetComponent<CardHolder>();
+        }
+        SpawnedCards.Add(Instance);
         _card.OtherplayersCard = CpuPlayer;
         _card.InitializeCard(_cardInfo);
         cardHand.Add(_card);
 
     }
 
-    public void DealPackage(){
-        if(cardHand.Count > 0){
+    public void DealPackage()
+    {
+        if (cardHand.Count > 0)
+        {
             return;
         }
         Debug.Log(1);
-        if(firstPackage != null){
+        if (firstPackage != null)
+        {
             foreach (Card item in firstPackage)
             {
                 CreateCardToHand(item);
@@ -86,7 +120,8 @@ public class Player : MonoBehaviour
             return;
         }
 
-        if(secondPackage != null){
+        if (secondPackage != null)
+        {
             foreach (Card item in secondPackage)
             {
                 CreateCardToHand(item);
@@ -98,19 +133,24 @@ public class Player : MonoBehaviour
         UIManager.instance.EndGameEffect();
     }
 
-    public bool NeedsToDealACard(){
-        if(cardHand.Count < 3){
+    public bool NeedsToDealACard()
+    {
+        if (cardHand.Count < 3)
+        {
             return true;
         }
         return false;
     }
 
-    public void DrawCard(Card item){
+    public void DrawCard(Card item)
+    {
         CreateCardToHand(item);
     }
 
-    public void CorrectHand(){
-        if(cardHand.Contains(null)){
+    public void CorrectHand()
+    {
+        if (cardHand.Contains(null))
+        {
             cardHand.Remove(null);
             CorrectHand();
         }
@@ -118,10 +158,12 @@ public class Player : MonoBehaviour
     }
 
 
-    public bool CheckIfHandIsPossibleToPlay(){
+    public bool CheckIfHandIsPossibleToPlay()
+    {
         foreach (CardHolder _card in cardHand)
         {
-            if(DeckManager.instance.CanItBePlayed(_card.GetCard())){
+            if (DeckManager.instance.CanItBePlayed(_card.GetCard()))
+            {
                 cardToPlay = _card.GetCard();
                 return true;
             }
@@ -129,13 +171,15 @@ public class Player : MonoBehaviour
         return false;
     }
 
-    private void PlayCheapestCard(){
+    private void PlayCheapestCard()
+    {
         CardHolder tempcard = null;
 
         foreach (CardHolder _card in cardHand)
         {
-            if(DeckManager.instance.CanItBePlayed(_card.GetCard())){
-                tempcard = _card;        
+            if (DeckManager.instance.CanItBePlayed(_card.GetCard()))
+            {
+                tempcard = _card;
                 break;
             }
         }
@@ -143,7 +187,8 @@ public class Player : MonoBehaviour
         UIManager.instance.AnimationEffect(GameManager.instance.TurnPosition).OnComplete(() => tempcard.OnClick_Card());
     }
 
-    public void OnClick_SortHand(){
+    public void OnClick_SortHand()
+    {
         cardHand.Sort(SortByScore);
         string temp = "";
         foreach (var item in cardHand)
@@ -157,72 +202,92 @@ public class Player : MonoBehaviour
         string card1 = c1.GetCard().value;
         string card2 = c2.GetCard().value;
 
-        if(c1.GetCard().value == "K"){
-            if(c2.GetCard().value == "1"){
+        if (c1.GetCard().value == "K")
+        {
+            if (c2.GetCard().value == "1")
+            {
                 return -1;
             }
-            if(c2.GetCard().value == "K"){
+            if (c2.GetCard().value == "K")
+            {
                 return 0;
             }
             return 1;
         }
-        if(c1.GetCard().value == "Q"){
-            if(c2.GetCard().value == "1"){
+        if (c1.GetCard().value == "Q")
+        {
+            if (c2.GetCard().value == "1")
+            {
                 return -1;
             }
-            if(c2.GetCard().value == "K"){
+            if (c2.GetCard().value == "K")
+            {
                 return -1;
             }
-            if(c2.GetCard().value == "Q"){
+            if (c2.GetCard().value == "Q")
+            {
                 return 0;
             }
             return 1;
         }
-        if(c1.GetCard().value == "J"){
-            if(c2.GetCard().value == "1"){
+        if (c1.GetCard().value == "J")
+        {
+            if (c2.GetCard().value == "1")
+            {
                 return -1;
             }
-            if(c2.GetCard().value == "K"){
+            if (c2.GetCard().value == "K")
+            {
                 return -1;
             }
-            if(c2.GetCard().value == "Q"){
+            if (c2.GetCard().value == "Q")
+            {
                 return -1;
             }
-            if(c2.GetCard().value == "J"){
+            if (c2.GetCard().value == "J")
+            {
                 return 0;
             }
             return 1;
         }
-        if(c1.GetCard().value == "1"){
-            if(c2.GetCard().value == "1"){
+        if (c1.GetCard().value == "1")
+        {
+            if (c2.GetCard().value == "1")
+            {
                 return 0;
             }
             return 1;
         }
 
-        if(c2.GetCard().value == "K"){
-            
+        if (c2.GetCard().value == "K")
+        {
+
             return 1;
         }
-        if(c2.GetCard().value == "Q"){
-            
+        if (c2.GetCard().value == "Q")
+        {
+
             return 1;
         }
-        if(c2.GetCard().value == "J"){
-            
+        if (c2.GetCard().value == "J")
+        {
+
             return -1;
         }
-        if(c2.GetCard().value == "1"){
-            
+        if (c2.GetCard().value == "1")
+        {
+
             return -1;
         }
-        
+
         return int.Parse(card1).CompareTo(int.Parse(card2));
     }
 
 
-    public void CPUPlayerTurn(){
-        if(CpuPlayer){
+    public void CPUPlayerTurn()
+    {
+        if (CpuPlayer)
+        {
             DeckManager.instance.DealCard(this);
             OnClick_SortHand();
             PlayCheapestCard();

@@ -23,82 +23,116 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public GameObject FirstMenu, GameMenu, PlayMenu, EndGame, AsCardMenu, MainPlayerTurn, MainCamera;
+    public GameObject FirstMenu, GameMenu, PlayMenu, EndGame, MainPlayerTurn, MainCamera, DealPile;
 
-    [Header ("AnimationEffect")]
+    [Header("AnimationEffect")]
     public GameObject FirstPosition, SecondPosition, ThirdPosition, Card, Center;
 
-    [Header ("AsEffect")]
+    [Header("AsEffect")]
     public GameObject AsMenu, FirstPlayer, SecondPlayer, ThirdPlayer;
-    public void OnClick_StartButton(){
+    public void OnClick_StartButton()
+    {
         FirstMenu.SetActive(false);
         PlayMenu.SetActive(true);
     }
 
-    public void OnClick_PlayButton(int cpuPlayers){
+    public void OnClick_PlayButton(int cpuPlayers)
+    {
         PlayMenu.SetActive(false);
         GameMenu.SetActive(true);
         GameManager.instance.InitializeScape(cpuPlayers);
     }
 
-    public void EndGameEffect(){
+    public void OnClick_Restart()
+    {
+        FirstMenu.SetActive(true);
+        GameMenu.SetActive(false);
+        PlayMenu.SetActive(false);
+        EndGame.SetActive(false);
+        GameManager.instance.ResetPlayers();
+        Card.SetActive(false);
+    }
+
+    public void EndGameEffect()
+    {
         Debug.Log("END");
     }
 
-    public void ErrorEffect(){
+    public void DealPileEffect()
+    {
+        DealPile.SetActive(true);
+        DealPile.GetComponent<CanvasGroup>().alpha = 1;
+        DealPile.GetComponent<CanvasGroup>().DOFade(0, 1).OnComplete(() => DealPile.SetActive(false));
+    }
+
+    public void ErrorEffect()
+    {
         AudioManager.instance.PlayClip(0);
     }
 
-    public void AsCardEffect(int NumOfPlayersInGame){
-        if(GameManager.instance.MainPlayer.GetComponent<Player>().isMyTurn){
+    public void AsCardEffect(int NumOfPlayersInGame)
+    {
+        if (GameManager.instance.MainPlayer.GetComponent<Player>().isMyTurn)
+        {
             AsMenu.SetActive(true);
             FirstPlayer.SetActive(true);
-            if(NumOfPlayersInGame == 3){
+            if (NumOfPlayersInGame == 3)
+            {
                 SecondPlayer.SetActive(true);
             }
-            if(NumOfPlayersInGame == 4){
+            if (NumOfPlayersInGame == 4)
+            {
                 ThirdPlayer.SetActive(true);
             }
-        }else{
+        }
+        else
+        {
             GameManager.instance.TurnLogicAs();
         }
-        
+
     }
 
-    public void AsCardEffectEnd(){
+    public void AsCardEffectEnd()
+    {
         AsMenu.SetActive(false);
-        FirstPlayer.SetActive(false);   
+        FirstPlayer.SetActive(false);
         SecondPlayer.SetActive(false);
         ThirdPlayer.SetActive(false);
-        
+
     }
 
-    public void MainPlayerTurnEffect(){
+    public void MainPlayerTurnEffect()
+    {
         MainPlayerTurn.SetActive(true);
         MainPlayerTurn.GetComponent<CanvasGroup>().alpha = 0;
         MainPlayerTurn.GetComponent<CanvasGroup>().DOFade(1, 1).OnComplete(OnCallback_MainPlayerTurnEffect);
     }
 
-    public void OnCallback_MainPlayerTurnEffect(){
+    public void OnCallback_MainPlayerTurnEffect()
+    {
         MainPlayerTurn.GetComponent<CanvasGroup>().DOFade(0, 1).OnComplete(() => MainPlayerTurn.SetActive(false));
     }
 
-    public Tween AnimationEffect(int i ){
-        
+    public Tween AnimationEffect(int i)
+    {
+
         Card.SetActive(true);
-        Card.transform.localScale = new Vector3(1,1,1);
-        if( i == 1){
+        Card.transform.localScale = new Vector3(1, 1, 1);
+        if (i == 1)
+        {
             Card.transform.position = FirstPosition.transform.position;
         }
-        if( i == 2){
+        if (i == 2)
+        {
             Card.transform.position = SecondPosition.transform.position;
         }
-        
-        if( i == 3){
+
+        if (i == 3)
+        {
             Card.transform.position = ThirdPosition.transform.position;
         }
         Card.transform.DOScale(0, 1);
-        return Card.transform.DOMove( Center.transform.position, 1);
+        return Card.transform.DOMove(Center.transform.position, 1);
     }
 
 }
