@@ -53,9 +53,17 @@ public class UIManager : MonoBehaviour
         Card.SetActive(false);
     }
 
-    public void EndGameEffect()
+    public void EndGameEffect(bool win)
     {
-        Debug.Log("END");
+        EndGame.SetActive(true);
+        if (win)
+        {
+            EndGame.GetComponent<EndGame>().SetText("You win");
+        }
+        else
+        {
+            EndGame.GetComponent<EndGame>().SetText("You lost");
+        }
     }
 
     public void DealPileEffect()

@@ -130,7 +130,7 @@ public class Player : MonoBehaviour
             return;
         }
 
-        UIManager.instance.EndGameEffect();
+        UIManager.instance.EndGameEffect(AmIMainPlayer);
     }
 
     public bool NeedsToDealACard()

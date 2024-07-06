@@ -122,15 +122,24 @@ public class DeckManager : MonoBehaviour
         }
     }
 
+    private void PlayerForCards(Player _player)
+    {
+        int difference = 3 - _player.cardHand.Count;
+        for (int i = 0; i < difference; i++)
+        {
+            _player.DrawCard(cardDeck[0]);
+            cardDeck.RemoveAt(0);
+        }
+        UpdateDeckTracker();
+    }
+
     public bool DealCard(Player _player)
     {
         if (cardDeck.Count > 0)
         {
             if (_player.cardHand.Count < 4)
             {
-                _player.DrawCard(cardDeck[0]);
-                cardDeck.RemoveAt(0);
-                UpdateDeckTracker();
+                PlayerForCards(_player);
                 return true;
             }
             return false;
@@ -175,6 +184,10 @@ public class DeckManager : MonoBehaviour
                 if (GameManager.instance.TurnPosition == 0)
                 {
                     UIManager.instance.AsCardEffect(GameManager.instance.NumOfPlayersInGame());
+                }
+                else
+                {
+                    GameManager.instance.TurnLogicAs();
                 }
 
             }
