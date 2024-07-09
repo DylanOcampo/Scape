@@ -24,24 +24,12 @@ public class PileManager : MonoBehaviour
 
     public List<CardHolder> RecycleCards = new List<CardHolder>();
 
-    public int NumberOfCopys;
 
-    private int placement;
+    //private stuff vvv
+    public int placement;
 
 
     public List<Card> test = new List<Card>();
-    int testpos = 0;
-
-    public void OnClick_test()
-    {
-        InitializeCard(test[testpos]);
-        testpos++;
-    }
-
-    public int GetNumberOfCopys()
-    {
-        return NumberOfCopys;
-    }
 
     private int GetPlacement()
     {
@@ -56,13 +44,22 @@ public class PileManager : MonoBehaviour
 
     private string GetLatestValue()
     {
-        if (CardsInPile > 3)
+        Debug.Log(CardsInPile);
+        if (CardsInPile <= 3)
         {
-            return BottomCards[GetPlacement()].GetValue();
+            return BottomCards[GetPlacement() - 1].GetValue();
         }
         else
         {
-            return RecycleCards[GetPlacement()].GetValue();
+            if (GetPlacement() == 0)
+            {
+                return RecycleCards[4].GetValue();
+            }
+            else
+            {
+                return RecycleCards[GetPlacement() - 1].GetValue();
+            }
+
         }
     }
 
@@ -71,15 +68,15 @@ public class PileManager : MonoBehaviour
     public void InitializeCard(Card self)
     {
         int _placement = GetPlacement();
-        if (CardsInPile > 3)
+        if (CardsInPile > 2)
         {
-            if (self.value == GetLatestValue() && _placement > 3)
+            if (self.value == GetLatestValue() && _placement > 4)
             {
                 CardHolder tempCard = RecycleCards[0];
                 tempCard.gameObject.SetActive(true);
                 tempCard.gameObject.transform.SetAsLastSibling();
                 tempCard.InitializeCard(self);
-                _placement = 0;
+                placement = 0;
             }
             else
             {
@@ -95,16 +92,30 @@ public class PileManager : MonoBehaviour
             BottomCards[_placement].InitializeCard(self);
 
         }
-        _placement++;
+        CardsInPile++;
+        placement++;
     }
 
 
     public void OnClick_DealCardPile()
     {
+
+
+
         Player tempPlayer = GameManager.instance.MainPlayer.GetComponent<Player>();
         if (tempPlayer.isMyTurn)
         {
             DeckManager.instance.DealPile(tempPlayer);
+            CardsInPile = 0;
+            foreach (CardHolder item in BottomCards)
+            {
+                item.gameObject.SetActive(false);
+            }
+            foreach (CardHolder item in RecycleCards)
+            {
+                item.gameObject.SetActive(false);
+            }
+
         }
 
     }

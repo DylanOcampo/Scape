@@ -56,9 +56,9 @@ public class Player : MonoBehaviour
         secondPackage = package;
     }
 
-    public void SetCardHand(Card[] handdealed)
+    public void SetCardHand(Card[] handDealed)
     {
-        foreach (Card item in handdealed)
+        foreach (Card item in handDealed)
         {
             CreateCardToHand(item);
 

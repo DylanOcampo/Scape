@@ -22,9 +22,13 @@ public class CardHolder : MonoBehaviour
         }
         cardInfo = self;
         gameObject.name = self.value;
-        secondCopy.SetActive(false);
-        thirdCopy.SetActive(false);
-        fourthCopy.SetActive(false);
+        if (secondCopy != null)
+        {
+            secondCopy.SetActive(false);
+            thirdCopy.SetActive(false);
+            fourthCopy.SetActive(false);
+        }
+
     }
 
     public void AddCopy()
