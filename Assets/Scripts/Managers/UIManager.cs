@@ -23,23 +23,18 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public GameObject FirstMenu, GameMenu, PlayMenu, EndGame, MainPlayerTurn, MainCamera, DealPile;
+    public GameObject FirstMenu, GameMenu, EndGame, MainPlayerTurn, DealPile;
 
     [Header("AnimationEffect")]
     public GameObject FirstPosition, SecondPosition, ThirdPosition, Card, Center;
 
     [Header("AsEffect")]
     public GameObject AsMenu, FirstPlayer, SecondPlayer, ThirdPlayer;
-    public void OnClick_StartButton()
-    {
-        FirstMenu.SetActive(false);
-        PlayMenu.SetActive(true);
-    }
 
     public void OnClick_PlayButton(int cpuPlayers)
     {
-        PlayMenu.SetActive(false);
         GameMenu.SetActive(true);
+        FirstMenu.SetActive(false);
         GameManager.instance.InitializeScape(cpuPlayers);
     }
 
@@ -47,7 +42,6 @@ public class UIManager : MonoBehaviour
     {
         FirstMenu.SetActive(true);
         GameMenu.SetActive(false);
-        PlayMenu.SetActive(false);
         EndGame.SetActive(false);
         GameManager.instance.ResetPlayers();
         Card.SetActive(false);

@@ -2,17 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class CardHolder : MonoBehaviour
 {
     private Card cardInfo;
     public Image spriteHolder;
-    public Button button;
     public Sprite noCardSprite;
 
-    public GameObject secondCopy, thirdCopy, fourthCopy;
+    public GameObject secondCopy, thirdCopy, fourthCopy, RotationHolder, transformHolder;
 
     public bool OtherplayersCard;
+    private float startingPosition;
+    private Tween CardUp;
+    public bool CanPlay = true;
+    public bool Top;
 
     public void InitializeCard(Card self)
     {
@@ -102,14 +106,61 @@ public class CardHolder : MonoBehaviour
         spriteHolder.sprite = noCardSprite;
     }
 
+
+    private void Setup_MouseEnter()
+    {
+        startingPosition = RotationHolder.transform.position.y;
+        CardUp = RotationHolder.transform.DOMoveY(startingPosition + 100, .5f, true);
+        CardUp.Pause();
+        CardUp.SetAutoKill(false);
+    }
+
+    public void OnMouseEnter()
+    {
+        if (CanPlay)
+        {
+            Top = true;
+            if (CardUp == null)
+            {
+                Setup_MouseEnter();
+
+                CardUp.Play();
+            }
+            else
+            {
+                CardUp.Restart();
+            }
+        }
+
+    }
+
+    public void ForceRestart()
+    {
+        if (Top)
+        {
+            Top = false;
+            CardUp.PlayBackwards();
+        }
+    }
+
+    public void OnMouseExit()
+    {
+        if (CanPlay)
+        {
+            if (startingPosition != RotationHolder.transform.position.y)
+            {
+                Top = false;
+                CardUp.PlayBackwards();
+            }
+        }
+
+    }
+
     public void OnClick_Card()
     {
         if (DeckManager.instance.CanItBePlayed(cardInfo))
         {
-            if (button != null)
-            {
-                button.enabled = false;
-            }
+
             GameManager.instance.GetCurrentPlayer().DeleteCardFromHand(this);
             DeckManager.instance.ProcessCard(this);
 

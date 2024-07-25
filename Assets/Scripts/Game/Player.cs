@@ -10,21 +10,21 @@ public class Player : MonoBehaviour
     public List<CardHolder> cardHand = new List<CardHolder>();
 
     private List<GameObject> SpawnedCards = new List<GameObject>();
+    public List<GameObject> CardReferences = new List<GameObject>();
+
+    public float offsetPosition;
+    public float offsetRotation;
 
     //public test
     public Card[] firstPackage;
     public Card[] secondPackage;
     public bool CpuPlayer = false;
     //public test
-
-
     public GameObject handContainer, PF_Card, PF_OthersCard;
-
     public bool AmIMainPlayer = false;
-
     public bool isMyTurn;
-
     public Card cardToPlay;
+
 
     public void ResetPlayer()
     {
@@ -38,6 +38,69 @@ public class Player : MonoBehaviour
             Destroy(item);
         }
         SpawnedCards.Clear();
+    }
+
+    private void Start()
+    {
+
+    }
+
+    public void VisualAdjust()
+    {
+        /*
+        if (cardHand.Count % 2 == 0)
+        {
+            CenterLength++;
+        }
+        int difference = 1;
+
+        for (int i = 0; i < SpawnedCards.Count; i++)
+        {
+            if (i == 0)
+            {
+                Vector3 temp = CardReferences[Center].transform.position;
+                temp.y += curvePos.Evaluate(Center) * offsetPosition;
+                SpawnedCards[i].transform.position = temp;
+            }
+            else
+            {
+
+                if (i % 2 == 0)
+                {
+                    // si es par
+                    Vector3 temp = CardReferences[Center + difference].transform.position;
+                    temp.y += curvePos.Evaluate((Center + difference) * .1f) * offsetPosition * influencePos;
+                    SpawnedCards[i].transform.position = temp;
+
+                    Vector3 tempR = Vector3.zero;
+                    tempR.z = curveRotation.Evaluate((Center + difference) * .1f) * offsetRotation * influencePos;
+                    SpawnedCards[i].GetComponent<CardHolder>().RotationHolder.transform.eulerAngles = tempR;
+                }
+                else
+                {
+                    if (i != 1)
+                    {
+                        difference++;
+                    }
+
+                    Vector3 temp = CardReferences[Center - difference].transform.position;
+                    temp.y += curvePos.Evaluate((Center - difference) * .1f) * offsetPosition * influencePos;
+                    SpawnedCards[i].transform.position = temp;
+
+                    Vector3 tempR = Vector3.zero;
+                    tempR.z = curveRotation.Evaluate((Center - difference) * .1f) * offsetRotation * influencePos;
+                    SpawnedCards[i].GetComponent<CardHolder>().RotationHolder.transform.eulerAngles = tempR;
+
+                }
+
+
+
+            }
+        }
+        */
+
+
+
     }
 
 
