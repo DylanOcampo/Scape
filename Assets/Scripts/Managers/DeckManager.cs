@@ -68,24 +68,31 @@ public class DeckManager : MonoBehaviour
 
     public void InitializeFirstPileCard()
     {
-        InitializePileCard(cardDeck[0]);
+        pileCard.gameObject.SetActive(true);
+        cardPile.Add(cardDeck[0]);
+        PileManager.instance.InitializeCard(cardDeck[0]);
+        pileCard.InitializeCard(cardDeck[0]);
         cardDeck.RemoveAt(0);
 
     }
 
-    public void InitializePileCard(Card _cardInfo)
+    public void InitializePileCard(CardHolder _cardInfo)
     {
         if (!pileCard.gameObject.activeSelf)
         {
             pileCard.gameObject.SetActive(true);
         }
-        cardPile.Add(_cardInfo);
-        if (pileCard.name == _cardInfo.value)
+        for (int i = 0; i < _cardInfo.CardsHeld.Count; i++)
         {
-            pileCard.GetComponent<CardHolder>().AddCopy();
-            return;
+            cardPile.Add(_cardInfo.CardsHeld[i]);
+            if (i != 0)
+            {
+                pileCard.GetComponent<CardHolder>().AddCopy(_cardInfo.CardsHeld[i]);
+            }
+            PileManager.instance.InitializeCard(_cardInfo.CardsHeld[i]);
+            pileCard.InitializeCard(_cardInfo.CardsHeld[i]);
+
         }
-        pileCard.InitializeCard(_cardInfo);
         UpdateDeckTracker();
 
     }
@@ -113,6 +120,7 @@ public class DeckManager : MonoBehaviour
         {
             _player.DrawCard(item);
         }
+        PileManager.instance.CleanCardPile();
         cardPile.Clear();
         UpdateDeckTracker();
         pileCard.NoCard();
@@ -180,7 +188,7 @@ public class DeckManager : MonoBehaviour
         {
             if (cardPlayed.GetCard().value == "1")
             {
-                InitializePileCard(cardPlayed.GetCard());
+                InitializePileCard(cardPlayed);
                 if (GameManager.instance.TurnPosition == 0)
                 {
                     UIManager.instance.AsCardEffect(GameManager.instance.NumOfPlayersInGame());
@@ -198,7 +206,7 @@ public class DeckManager : MonoBehaviour
             }
             else
             {
-                InitializePileCard(cardPlayed.GetCard());
+                InitializePileCard(cardPlayed);
                 if (cardPlayed.GetCard().value == "8")
                 {
                     GameManager.instance.TurnLogic(false, cardPlayed.GetNumberOfCopys(), cardPlayed);

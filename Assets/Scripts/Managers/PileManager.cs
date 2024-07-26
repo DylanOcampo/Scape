@@ -28,9 +28,6 @@ public class PileManager : MonoBehaviour
     //private stuff vvv
     public int placement;
 
-
-    public List<Card> test = new List<Card>();
-
     private int GetPlacement()
     {
 
@@ -96,27 +93,30 @@ public class PileManager : MonoBehaviour
         placement++;
     }
 
-
     public void OnClick_DealCardPile()
     {
-
-
-
         Player tempPlayer = GameManager.instance.MainPlayer.GetComponent<Player>();
         if (tempPlayer.isMyTurn)
         {
             DeckManager.instance.DealPile(tempPlayer);
-            CardsInPile = 0;
-            foreach (CardHolder item in BottomCards)
-            {
-                item.gameObject.SetActive(false);
-            }
-            foreach (CardHolder item in RecycleCards)
-            {
-                item.gameObject.SetActive(false);
-            }
-
         }
+
+    }
+
+
+    public void CleanCardPile()
+    {
+        CardsInPile = 0;
+        placement = 0;
+        foreach (CardHolder item in BottomCards)
+        {
+            item.gameObject.SetActive(false);
+        }
+        foreach (CardHolder item in RecycleCards)
+        {
+            item.gameObject.SetActive(false);
+        }
+
 
     }
 

@@ -6,7 +6,7 @@ using DG.Tweening;
 
 public class CardHolder : MonoBehaviour
 {
-    public Card cardInfo;
+    public List<Card> CardsHeld = new List<Card>();
     public Image spriteHolder;
     public Sprite noCardSprite;
 
@@ -27,7 +27,11 @@ public class CardHolder : MonoBehaviour
         {
             spriteHolder.sprite = self.Image;
         }
-        cardInfo = self;
+        if (CardsHeld.Count > 0)
+        {
+            CardsHeld.Clear();
+        }
+        CardsHeld.Add(self);
         gameObject.name = self.value;
         if (secondCopy != null)
         {
@@ -38,14 +42,15 @@ public class CardHolder : MonoBehaviour
 
     }
 
-    public void AddCopy()
+    public void AddCopy(Card self)
     {
+        CardsHeld.Add(self);
         if (!secondCopy.activeSelf)
         {
             secondCopy.SetActive(true);
             if (!OtherplayersCard)
             {
-                secondCopy.GetComponent<Image>().sprite = cardInfo.Image;
+                secondCopy.GetComponent<Image>().sprite = self.Image;
             }
             NumberCopys = 2;
             return;
@@ -55,7 +60,7 @@ public class CardHolder : MonoBehaviour
             thirdCopy.SetActive(true);
             if (!OtherplayersCard)
             {
-                thirdCopy.GetComponent<Image>().sprite = cardInfo.Image;
+                thirdCopy.GetComponent<Image>().sprite = self.Image;
             }
             NumberCopys = 3;
             return;
@@ -65,7 +70,7 @@ public class CardHolder : MonoBehaviour
             fourthCopy.SetActive(true);
             if (!OtherplayersCard)
             {
-                fourthCopy.GetComponent<Image>().sprite = cardInfo.Image;
+                fourthCopy.GetComponent<Image>().sprite = self.Image;
             }
             NumberCopys = 4;
             return;
@@ -79,12 +84,12 @@ public class CardHolder : MonoBehaviour
 
     public Card GetCard()
     {
-        return cardInfo;
+        return CardsHeld[0];
     }
 
     public string GetValue()
     {
-        return cardInfo.value;
+        return CardsHeld[0].value;
     }
 
 
@@ -95,6 +100,7 @@ public class CardHolder : MonoBehaviour
         thirdCopy.SetActive(false);
         secondCopy.SetActive(false);
         spriteHolder.sprite = noCardSprite;
+        CardsHeld.Clear();
     }
 
 
@@ -104,11 +110,6 @@ public class CardHolder : MonoBehaviour
         CardUp = RotationHolder.transform.DOMoveY(startingPosition + 50, .3f, true);
         CardUp.Pause();
         CardUp.SetAutoKill(false);
-    }
-
-    private void Setup_MouseEnterMultiple()
-    {
-
     }
 
     public void OnMouseEnter()
@@ -154,6 +155,7 @@ public class CardHolder : MonoBehaviour
 
     private void OffCards(int identifier)
     {
+
         if (identifier == 2)
         {
             secondCopy.SetActive(false);
@@ -168,17 +170,20 @@ public class CardHolder : MonoBehaviour
 
     public void OnClick_SelectCard(int identifier)
     {
-        if (DeckManager.instance.CanItBePlayed(cardInfo))
+        if (DeckManager.instance.CanItBePlayed(CardsHeld[0]))
         {
             CardHolder tempCard = this;
 
             if (identifier == NumberCopys)
             {
                 tempCard.NumberCopys = 1;
+                CardsHeld.RemoveAt(identifier - 1);
             }
             else
             {
-                tempCard.NumberCopys = identifier - NumberCopys + 1;
+                int difference = NumberCopys - identifier + 1;
+                tempCard.NumberCopys = difference;
+                CardsHeld.RemoveRange(identifier - 1, difference);
             }
             OffCards(identifier);
             DeckManager.instance.ProcessCard(tempCard);
@@ -191,7 +196,7 @@ public class CardHolder : MonoBehaviour
 
     public void OnClick_Card()
     {
-        if (DeckManager.instance.CanItBePlayed(cardInfo))
+        if (DeckManager.instance.CanItBePlayed(CardsHeld[0]))
         {
 
             GameManager.instance.GetCurrentPlayer().DeleteCardFromHand(this);
@@ -204,13 +209,5 @@ public class CardHolder : MonoBehaviour
             UIManager.instance.ErrorEffect();
         }
     }
-    public void OnClick_DealCardPile()
-    {
-        Player tempPlayer = GameManager.instance.MainPlayer.GetComponent<Player>();
-        if (tempPlayer.isMyTurn)
-        {
-            DeckManager.instance.DealPile(tempPlayer);
-        }
 
-    }
 }

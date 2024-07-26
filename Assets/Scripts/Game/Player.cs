@@ -141,7 +141,7 @@ public class Player : MonoBehaviour
 
             if (item.name == _cardInfo.value)
             {
-                item.GetComponent<CardHolder>().AddCopy();
+                item.GetComponent<CardHolder>().AddCopy(_cardInfo);
                 return;
             }
 
