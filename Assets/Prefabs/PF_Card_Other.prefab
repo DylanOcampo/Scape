@@ -294,7 +294,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9de8f3011e8c3974f8340a5e6fe08501, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f6919e0ce891a2d44b173e32e1e554a4, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -317,9 +317,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteHolder: {fileID: 6464887172067814627}
-  button: {fileID: 0}
   noCardSprite: {fileID: 0}
   secondCopy: {fileID: 6645441562700154314}
   thirdCopy: {fileID: 2629060523331681945}
   fourthCopy: {fileID: 1983098564968431137}
+  RotationHolder: {fileID: 0}
   OtherplayersCard: 0
+  CanPlay: 1
+  Top: 0
+  CopyNumber: 0
