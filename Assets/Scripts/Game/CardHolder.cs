@@ -6,7 +6,7 @@ using DG.Tweening;
 
 public class CardHolder : MonoBehaviour
 {
-    private Card cardInfo;
+    public Card cardInfo;
     public Image spriteHolder;
     public Sprite noCardSprite;
 
@@ -18,8 +18,11 @@ public class CardHolder : MonoBehaviour
     public bool CanPlay = true;
     public bool Top;
 
+    private int NumberCopys;
+
     public void InitializeCard(Card self)
     {
+        NumberCopys = 1;
         if (!OtherplayersCard)
         {
             spriteHolder.sprite = self.Image;
@@ -44,7 +47,7 @@ public class CardHolder : MonoBehaviour
             {
                 secondCopy.GetComponent<Image>().sprite = cardInfo.Image;
             }
-
+            NumberCopys = 2;
             return;
         }
         if (!thirdCopy.activeSelf)
@@ -54,7 +57,7 @@ public class CardHolder : MonoBehaviour
             {
                 thirdCopy.GetComponent<Image>().sprite = cardInfo.Image;
             }
-
+            NumberCopys = 3;
             return;
         }
         if (!fourthCopy.activeSelf)
@@ -64,27 +67,14 @@ public class CardHolder : MonoBehaviour
             {
                 fourthCopy.GetComponent<Image>().sprite = cardInfo.Image;
             }
+            NumberCopys = 4;
             return;
         }
     }
 
     public int GetNumberOfCopys()
     {
-        if (fourthCopy.activeSelf)
-        {
-            return 4;
-        }
-        if (thirdCopy.activeSelf)
-        {
-            return 3;
-        }
-        if (secondCopy.activeSelf)
-        {
-            return 2;
-        }
-
-
-        return 1;
+        return NumberCopys;
     }
 
     public Card GetCard()
@@ -100,6 +90,7 @@ public class CardHolder : MonoBehaviour
 
     public void NoCard()
     {
+        NumberCopys = 0;
         fourthCopy.SetActive(false);
         thirdCopy.SetActive(false);
         secondCopy.SetActive(false);
@@ -110,9 +101,14 @@ public class CardHolder : MonoBehaviour
     private void Setup_MouseEnter()
     {
         startingPosition = RotationHolder.transform.position.y;
-        CardUp = RotationHolder.transform.DOMoveY(startingPosition + 100, .5f, true);
+        CardUp = RotationHolder.transform.DOMoveY(startingPosition + 50, .3f, true);
         CardUp.Pause();
         CardUp.SetAutoKill(false);
+    }
+
+    private void Setup_MouseEnterMultiple()
+    {
+
     }
 
     public void OnMouseEnter()
@@ -154,6 +150,43 @@ public class CardHolder : MonoBehaviour
             }
         }
 
+    }
+
+    private void OffCards(int identifier)
+    {
+        if (identifier == 2)
+        {
+            secondCopy.SetActive(false);
+            thirdCopy.SetActive(false);
+        }
+        if (identifier == 3)
+        {
+            thirdCopy.SetActive(false);
+        }
+        fourthCopy.SetActive(false);
+    }
+
+    public void OnClick_SelectCard(int identifier)
+    {
+        if (DeckManager.instance.CanItBePlayed(cardInfo))
+        {
+            CardHolder tempCard = this;
+
+            if (identifier == NumberCopys)
+            {
+                tempCard.NumberCopys = 1;
+            }
+            else
+            {
+                tempCard.NumberCopys = identifier - NumberCopys + 1;
+            }
+            OffCards(identifier);
+            DeckManager.instance.ProcessCard(tempCard);
+        }
+        else
+        {
+            UIManager.instance.ErrorEffect();
+        }
     }
 
     public void OnClick_Card()

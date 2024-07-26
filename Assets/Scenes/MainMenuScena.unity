@@ -6011,7 +6011,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9de8f3011e8c3974f8340a5e6fe08501, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f6919e0ce891a2d44b173e32e1e554a4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -9007,6 +9007,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60e12cd8a6b4d154eb0c1ced7bd2fd76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardInfo:
+    value: 
+    Image: {fileID: 0}
+    Cardtype: 0
   spriteHolder: {fileID: 1505312651}
   noCardSprite: {fileID: 21300000, guid: 9de8f3011e8c3974f8340a5e6fe08501, type: 3}
   secondCopy: {fileID: 1986539402}
