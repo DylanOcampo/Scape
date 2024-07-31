@@ -64,6 +64,7 @@ public class GameManager : MonoBehaviour
         {
             DeckManager.instance.DealPile(CurrentTurn);
         }
+        MainMenuManager.instance.CardMenuReset(false);
     }
 
     private int CorrectTurnPosition(int TurnPosition)
@@ -95,14 +96,21 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public void TurnLogic(bool burn = false, int TurnRate = 0, CardHolder _card = null)
+    public void TurnLogic(bool burn = false, int TurnRate = 0, CardHolder _card = null, bool identifier = false)
     {
-        CurrentTurn.DeleteCardFromHand(_card);
+        if (!identifier)
+        {
+            CurrentTurn.DeleteCardFromHand(_card);
+        }
+
         if (CurrentTurn.NeedsToDealACard())
         {
             if (!DeckManager.instance.DealCard(CurrentTurn))
             {
-                CurrentTurn.DealPackage();
+                if (CurrentTurn.DealPackage())
+                {
+                    return;
+                }
             }
         }
         if (!burn)

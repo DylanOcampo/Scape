@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,8 +23,8 @@ public class MainMenuManager : MonoBehaviour
 
 
 
-    public Transform Ani_Card_Start, Ani_Card_End, Ani_Menu_Start, Ani_Menu_End;
-    public GameObject Card, MenuCards, SettingsMenu;
+    public Transform Ani_Menu_Start, Ani_Menu_End;
+    public GameObject Card, MenuCards, SettingsMenu, TutorialMenu, PopUp;
 
     public List<CardMenu> CardButtons = new List<CardMenu>();
     public List<Selectable> CardInteraction = new List<Selectable>();
@@ -121,22 +122,37 @@ public class MainMenuManager : MonoBehaviour
 
     private void OpenPlay()
     {
+        CardButtons[3].gameObject.SetActive(true);
+        CardInteraction[3].gameObject.SetActive(true);
         CardButtons[0].WordReference.sprite = Words[3];
         CardButtons[1].WordReference.sprite = Words[4];
         CardButtons[2].WordReference.sprite = Words[5];
-        CardButtons[3].gameObject.SetActive(true);
-        CardInteraction[3].gameObject.SetActive(true);
         CardButtons[3].WordReference.sprite = Words[10];
+        CardButtons[0].WordReference.gameObject.transform.localEulerAngles = Vector3.zero;
+        CardButtons[2].WordReference.gameObject.transform.localEulerAngles = Vector3.zero;
     }
 
     private void OpenSinglePlayer()
     {
         CardButtons[0].WordReference.sprite = Words[6];
         CardButtons[1].WordReference.sprite = Words[7];
+
         CardButtons[2].WordReference.sprite = Words[8];
         CardButtons[3].gameObject.SetActive(true);
         CardInteraction[3].gameObject.SetActive(true);
         CardButtons[3].WordReference.sprite = Words[9];
+    }
+
+    private void OpenTutorial()
+    {
+        AudioManager.instance.PlayClip(9);
+        TutorialMenu.SetActive(true);
+    }
+
+    private void OpenPopUp()
+    {
+        AudioManager.instance.PlayClip(9);
+        PopUp.SetActive(true);
     }
 
     private void BackSinglePlayer()
@@ -153,6 +169,8 @@ public class MainMenuManager : MonoBehaviour
         CardButtons[0].WordReference.sprite = Words[0];
         CardButtons[1].WordReference.sprite = Words[1];
         CardButtons[2].WordReference.sprite = Words[2];
+        CardButtons[0].WordReference.gameObject.transform.localEulerAngles = new Vector3(0, 0, -20);
+        CardButtons[2].WordReference.gameObject.transform.localEulerAngles = new Vector3(0, 0, 20);
     }
 
     private void OpenSettings()
@@ -174,8 +192,16 @@ public class MainMenuManager : MonoBehaviour
         Play_Card_Menu();
     }
 
+    public void CardMenuReset(bool value)
+    {
+        OpenMenuInitial();
+        MenuSection = 0;
+        UIManager.instance.FirstMenu.SetActive(value);
+    }
+
     private void CardMenu(int option)
     {
+        AudioManager.instance.PlayClip(12);
         switch (MenuSection)
         {
             case 0:
@@ -189,6 +215,7 @@ public class MainMenuManager : MonoBehaviour
                         MenuSection = 1;
                         break;
                     case 2:
+                        OpenPopUp();
                         //Collections
                         break;
                 }
@@ -198,12 +225,14 @@ public class MainMenuManager : MonoBehaviour
                 {
                     case 0:
                         //Tutorial
+                        OpenTutorial();
                         break;
                     case 1:
                         OpenSinglePlayer();
                         MenuSection = 2;
                         break;
                     case 2:
+                        OpenPopUp();
                         //Multiplayer
                         break;
                     case 3:
@@ -235,8 +264,10 @@ public class MainMenuManager : MonoBehaviour
 
 
         }
+
         MenuCards.transform.DOMove(Ani_Menu_Start.position, .25f).OnComplete(() => Callback_CardMenu());
     }
+
 
     private void CardCheckerTrigger(bool value)
     {

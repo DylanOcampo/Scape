@@ -36,7 +36,8 @@ public class DeckManager : MonoBehaviour
         ResetDeck();
         Shuffle(cardDeck);
         DealCardsToPlayers();
-        InitializeFirstPileCard();
+        pileCard.gameObject.SetActive(true);
+        //InitializeFirstPileCard();
     }
 
     private void ResetDeck()
@@ -63,7 +64,7 @@ public class DeckManager : MonoBehaviour
             item.SetSecondPackage(CreatePackage());
             item.SetCardHand(CreatePackage());
         }
-
+        UpdateDeckTracker();
     }
 
     public void InitializeFirstPileCard()
@@ -177,12 +178,12 @@ public class DeckManager : MonoBehaviour
     }
 
 
-    public void ProcessCard(CardHolder cardPlayed)
+    public void ProcessCard(CardHolder cardPlayed, bool identifier = false)
     {
         if (CheckForBurn(cardPlayed))
         {
             BurnPile();
-            GameManager.instance.TurnLogic(true, 0, cardPlayed);
+            GameManager.instance.TurnLogic(true, 0, cardPlayed, identifier);
         }
         else
         {
@@ -202,18 +203,18 @@ public class DeckManager : MonoBehaviour
             else if (cardPlayed.GetCard().value == "10")
             {
                 BurnPile();
-                GameManager.instance.TurnLogic(true, 0, cardPlayed);
+                GameManager.instance.TurnLogic(true, 0, cardPlayed, identifier);
             }
             else
             {
                 InitializePileCard(cardPlayed);
                 if (cardPlayed.GetCard().value == "8")
                 {
-                    GameManager.instance.TurnLogic(false, cardPlayed.GetNumberOfCopys(), cardPlayed);
+                    GameManager.instance.TurnLogic(false, cardPlayed.GetNumberOfCopys(), cardPlayed, identifier);
                 }
                 else
                 {
-                    GameManager.instance.TurnLogic(false, 0, cardPlayed);
+                    GameManager.instance.TurnLogic(false, 0, cardPlayed, identifier);
                 }
             }
         }
@@ -222,6 +223,7 @@ public class DeckManager : MonoBehaviour
     private void BurnPile()
     {
         cardPile.Clear();
+        PileManager.instance.CleanCardPile();
         pileCard.gameObject.SetActive(false);
     }
 

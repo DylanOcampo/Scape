@@ -40,6 +40,7 @@ public class UIManager : MonoBehaviour
 
     public void OnClick_Restart()
     {
+        Time.timeScale = 1;
         FirstMenu.SetActive(true);
         GameMenu.SetActive(false);
         EndGame.SetActive(false);
@@ -49,6 +50,7 @@ public class UIManager : MonoBehaviour
 
     public void EndGameEffect(bool win)
     {
+        GameMenu.SetActive(false);
         EndGame.SetActive(true);
         if (win)
         {
@@ -58,6 +60,7 @@ public class UIManager : MonoBehaviour
         {
             EndGame.GetComponent<EndGame>().SetText("You lost");
         }
+        Time.timeScale = 0;
     }
 
     public void DealPileEffect()
@@ -69,7 +72,7 @@ public class UIManager : MonoBehaviour
 
     public void ErrorEffect()
     {
-        AudioManager.instance.PlayClip(0);
+        AudioManager.instance.PlayClip(7);
     }
 
     public void AsCardEffect(int NumOfPlayersInGame)
@@ -107,12 +110,12 @@ public class UIManager : MonoBehaviour
     {
         MainPlayerTurn.SetActive(true);
         MainPlayerTurn.GetComponent<CanvasGroup>().alpha = 0;
-        MainPlayerTurn.GetComponent<CanvasGroup>().DOFade(1, 1).OnComplete(OnCallback_MainPlayerTurnEffect);
+        MainPlayerTurn.GetComponent<CanvasGroup>().DOFade(1, .5f).OnComplete(OnCallback_MainPlayerTurnEffect);
     }
 
     public void OnCallback_MainPlayerTurnEffect()
     {
-        MainPlayerTurn.GetComponent<CanvasGroup>().DOFade(0, 1).OnComplete(() => MainPlayerTurn.SetActive(false));
+        MainPlayerTurn.GetComponent<CanvasGroup>().DOFade(0, .5f).OnComplete(() => MainPlayerTurn.SetActive(false));
     }
 
     public Tween AnimationEffect(int i)

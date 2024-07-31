@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -14,6 +15,8 @@ public class Player : MonoBehaviour
 
     public float offsetPosition;
     public float offsetRotation;
+
+    public TextMeshProUGUI PackageCounter;
 
     //public test
     public Card[] firstPackage;
@@ -38,6 +41,7 @@ public class Player : MonoBehaviour
             Destroy(item);
         }
         SpawnedCards.Clear();
+        PackageCounter.text = "2";
     }
 
     private void Start()
@@ -166,21 +170,21 @@ public class Player : MonoBehaviour
 
     }
 
-    public void DealPackage()
+    public bool DealPackage()
     {
         if (cardHand.Count > 0)
         {
-            return;
+            return false;
         }
-        Debug.Log(1);
         if (firstPackage != null)
         {
             foreach (Card item in firstPackage)
             {
                 CreateCardToHand(item);
             }
+            PackageCounter.text = "1";
             firstPackage = null;
-            return;
+            return false;
         }
 
         if (secondPackage != null)
@@ -189,11 +193,13 @@ public class Player : MonoBehaviour
             {
                 CreateCardToHand(item);
             }
+            PackageCounter.text = "0";
             secondPackage = null;
-            return;
+            return false;
         }
 
         UIManager.instance.EndGameEffect(AmIMainPlayer);
+        return true;
     }
 
     public bool NeedsToDealACard()
@@ -247,7 +253,7 @@ public class Player : MonoBehaviour
             }
         }
         cardHand.Remove(tempcard);
-        UIManager.instance.AnimationEffect(GameManager.instance.TurnPosition).OnComplete(() => tempcard.OnClick_Card());
+        UIManager.instance.AnimationEffect(GameManager.instance.TurnPosition).OnComplete(() => tempcard.OnClick_Card(false));
     }
 
     public void OnClick_SortHand()

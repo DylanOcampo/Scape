@@ -202,14 +202,14 @@ MonoBehaviour:
       - m_Target: {fileID: 8864383336374667004}
         m_TargetAssemblyTypeName: CardHolder, Assembly-CSharp
         m_MethodName: OnClick_Card
-        m_Mode: 1
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!1 &1217221822047376506
 GameObject:
@@ -668,10 +668,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60e12cd8a6b4d154eb0c1ced7bd2fd76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardInfo:
-    value: 
-    Image: {fileID: 0}
-    Cardtype: 0
+  CardsHeld: []
   spriteHolder: {fileID: 1569201401710907450}
   noCardSprite: {fileID: 0}
   secondCopy: {fileID: 1612695029425976330}

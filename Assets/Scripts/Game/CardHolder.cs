@@ -172,6 +172,7 @@ public class CardHolder : MonoBehaviour
     {
         if (DeckManager.instance.CanItBePlayed(CardsHeld[0]))
         {
+            AudioManager.instance.PlayClip(11);
             CardHolder tempCard = this;
 
             if (identifier == NumberCopys)
@@ -186,7 +187,7 @@ public class CardHolder : MonoBehaviour
                 CardsHeld.RemoveRange(identifier - 1, difference);
             }
             OffCards(identifier);
-            DeckManager.instance.ProcessCard(tempCard);
+            DeckManager.instance.ProcessCard(tempCard, true);
         }
         else
         {
@@ -194,11 +195,14 @@ public class CardHolder : MonoBehaviour
         }
     }
 
-    public void OnClick_Card()
+    public void OnClick_Card(bool isPlayer = true)
     {
         if (DeckManager.instance.CanItBePlayed(CardsHeld[0]))
         {
-
+            if (isPlayer)
+            {
+                AudioManager.instance.PlayClip(11);
+            }
             GameManager.instance.GetCurrentPlayer().DeleteCardFromHand(this);
             DeckManager.instance.ProcessCard(this);
 

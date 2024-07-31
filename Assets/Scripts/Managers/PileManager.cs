@@ -41,7 +41,6 @@ public class PileManager : MonoBehaviour
 
     private string GetLatestValue()
     {
-        Debug.Log(CardsInPile);
         if (CardsInPile <= 3)
         {
             return BottomCards[GetPlacement() - 1].GetValue();
