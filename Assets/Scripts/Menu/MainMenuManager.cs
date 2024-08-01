@@ -197,6 +197,7 @@ public class MainMenuManager : MonoBehaviour
         OpenMenuInitial();
         MenuSection = 0;
         UIManager.instance.FirstMenu.SetActive(value);
+        ForceCardsAnimationReset();
     }
 
     private void CardMenu(int option)

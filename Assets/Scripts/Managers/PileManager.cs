@@ -110,10 +110,14 @@ public class PileManager : MonoBehaviour
         foreach (CardHolder item in BottomCards)
         {
             item.gameObject.SetActive(false);
+            item.CardsHeld.Clear();
+            item.name = "Card";
         }
         foreach (CardHolder item in RecycleCards)
         {
             item.gameObject.SetActive(false);
+            item.CardsHeld.Clear();
+            item.name = "Card";
         }
 
 

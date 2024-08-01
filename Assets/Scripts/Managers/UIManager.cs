@@ -87,6 +87,7 @@ public class UIManager : MonoBehaviour
             }
             if (NumOfPlayersInGame == 4)
             {
+                SecondPlayer.SetActive(true);
                 ThirdPlayer.SetActive(true);
             }
         }

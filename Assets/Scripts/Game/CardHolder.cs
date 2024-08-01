@@ -89,7 +89,15 @@ public class CardHolder : MonoBehaviour
 
     public string GetValue()
     {
-        return CardsHeld[0].value;
+        if (CardsHeld.Count == 0)
+        {
+            return "3";
+        }
+        else
+        {
+            return CardsHeld[0].value;
+        }
+
     }
 
 

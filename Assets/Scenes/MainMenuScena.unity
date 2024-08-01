@@ -359,7 +359,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -2.7325134, y: 1.7567139}
+  m_AnchoredPosition: {x: -2.732544, y: 1.7567139}
   m_SizeDelta: {x: -14.8333, y: -17.5658}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &65460546
@@ -830,7 +830,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -2.7325134, y: 1.7567139}
+  m_AnchoredPosition: {x: -2.732544, y: 1.7567139}
   m_SizeDelta: {x: -14.8333, y: -17.5658}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &172395436
@@ -964,7 +964,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -2.7325134, y: 1.7567139}
+  m_AnchoredPosition: {x: -2.732544, y: 1.7567139}
   m_SizeDelta: {x: -14.8333, y: -17.5658}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &175722611
@@ -3495,7 +3495,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -2.7325134, y: 1.7567139}
+  m_AnchoredPosition: {x: -2.732544, y: 1.7567139}
   m_SizeDelta: {x: -14.8333, y: -17.5658}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &425710108
@@ -10830,7 +10830,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -2.7325134, y: 1.7567139}
+  m_AnchoredPosition: {x: -2.732544, y: 1.7567139}
   m_SizeDelta: {x: -14.8333, y: -17.5658}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1202746401
@@ -13815,6 +13815,7 @@ MonoBehaviour:
     Image: {fileID: 21300000, guid: 9b6d8208f19295040909cc8bbf05ad09, type: 3}
     Cardtype: 3
   cardDeck: []
+  cardPile: []
   cardsInDeck: {fileID: 854654229}
   pileCard: {fileID: 1710723044}
   cardsInPile: {fileID: 465234091}
@@ -14887,7 +14888,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ' v.0.6'
+  m_text: ' v.0.62'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -16618,7 +16619,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -2.7325134, y: 1.7567139}
+  m_AnchoredPosition: {x: -2.732544, y: 1.7567139}
   m_SizeDelta: {x: -14.8333, y: -17.5658}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1646511150
@@ -18584,7 +18585,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 11.419}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -104.4, y: -66}
+  m_AnchoredPosition: {x: -105.1, y: -74.5}
   m_SizeDelta: {x: -968, y: -91.59778}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1841338684

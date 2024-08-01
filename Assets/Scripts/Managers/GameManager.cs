@@ -48,6 +48,22 @@ public class GameManager : MonoBehaviour
 
     public void InitializeScape(int players)
     {
+        ConfigPlayers(players);
+        DeckManager.instance.InitializeDeck();
+        CurrentTurn = MainPlayer.GetComponent<Player>();
+        CurrentTurn.isMyTurn = true;
+        TurnPosition = 0;
+        UIManager.instance.MainPlayerTurnEffect();
+        MainMenuManager.instance.CardMenuReset(false);
+        PileManager.instance.CleanCardPile();
+    }
+
+    private void ConfigPlayers(int players)
+    {
+        for (int i = 1; i < playersInGame.Count; i++)
+        {
+            playersInGame[i].gameObject.SetActive(false);
+        }
         playersInGame.Clear();
         playersInGame.Add(MainPlayer.GetComponent<Player>());
         for (int i = 0; i < players; i++)
@@ -56,15 +72,6 @@ public class GameManager : MonoBehaviour
             playersInGame.Add(possiblePlayers[i].GetComponent<Player>());
             possiblePlayers[i].SetActive(true);
         }
-        DeckManager.instance.InitializeDeck();
-        CurrentTurn = MainPlayer.GetComponent<Player>();
-        CurrentTurn.isMyTurn = true;
-        TurnPosition = 0;
-        if (CurrentTurn.CheckIfHandIsPossibleToPlay())
-        {
-            DeckManager.instance.DealPile(CurrentTurn);
-        }
-        MainMenuManager.instance.CardMenuReset(false);
     }
 
     private int CorrectTurnPosition(int TurnPosition)

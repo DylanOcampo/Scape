@@ -24,7 +24,7 @@ public class DeckManager : MonoBehaviour
     [SerializeField] private List<Card> PrivateDeck = new List<Card>();
     [SerializeField] private List<Card> cardDeck = new List<Card>();
 
-    private List<Card> cardPile = new List<Card>();
+    public List<Card> cardPile = new List<Card>();
     public TextMeshProUGUI cardsInDeck;
 
     public CardHolder pileCard;
@@ -37,7 +37,18 @@ public class DeckManager : MonoBehaviour
         Shuffle(cardDeck);
         DealCardsToPlayers();
         pileCard.gameObject.SetActive(true);
+        ClearStuff();
+        UpdateDeckTracker();
         //InitializeFirstPileCard();
+    }
+
+    private void ClearStuff()
+    {
+        pileCard.CardsHeld.Clear();
+        cardPile.Clear();
+        pileCard.name = "card";
+        actualvalue = 0;
+        actualdeckvalue = 0;
     }
 
     private void ResetDeck()
